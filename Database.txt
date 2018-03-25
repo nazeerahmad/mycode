@@ -1,0 +1,77 @@
+  we want to design any project - 
+
+   1st design the database table 
+
+  create user amitji identified by gzb;
+  grant connect,resource to amitji;
+  create table tblLogin
+  (
+     userid varchar2(20) constraint cn_uid primary key,
+     pass varchar2(20),
+     wmode varchar2(10),
+     status varchar2(1) default 'N',
+     createdon date
+  );
+
+  create table tblRegistration
+  (
+     userid varchar2(20) constraint cn_uidref references tblLogin(userid) on delete cascade,
+     name varchar2(30),
+     fname varchar2(30),
+     sex varchar2(10),
+     mailid varchar2(50),
+     mobile varchar(14),
+     dob date,
+     address varchar2(100),
+     quali varchar2(10),
+     pin number(6)
+  );
+ 
+
+create or replace procedure addUser
+(
+   vuserid varchar2,
+   vpass varchar2,
+   msg out varchar2
+)
+is 
+begin
+   insert into tblLogin values(vuserid,vpass,'USER','N',sysdate);
+   msg := 'User Successfully Created, Plz complete ur Profile.';
+   commit;
+exception
+  when no_data_found then
+    msg:='jaja';
+  when others then
+    msg := 'Sorry User Id already Registered, try another User Id.';
+end;
+/
+
+
+
+create or replace procedure addProfile
+(
+     vuserid varchar2,
+     vname varchar2,
+     vfname varchar2,
+     vsex varchar2,
+     vmailid varchar2,
+     vmobile varchar,
+     vdob date,
+     vaddress varchar2,
+     vquali varchar2,
+     vpin number,
+     msg out varchar2
+)
+is 
+begin
+   insert into tblRegistration values(vuserid,vname,vfname,vsex,vmailid,vmobile,vdob,vaddress ,vquali,vpin);
+   msg := 'User Profile Successfully Completed';
+   update tblLogin set status = 'Y' where userid=vuserid;
+   commit;
+end;
+/
+
+
+
+

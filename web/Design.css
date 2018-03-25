@@ -1,0 +1,29 @@
+.frm
+{
+    background-color: #d7d5c0;
+    border:3px solid #232109;
+    border-radius: 10px;
+    margin-left: 100px;
+    width:550px;
+}
+input[type=text],input[type=password],textarea,select
+{
+    background-color: #dbd2b2;
+    border:1px solid #232109;
+    color:#232109;
+    border-radius: 3px;
+    font-family: verdana;
+    font-size: 12px;
+    width:160px;
+    height:24px;
+}
+tr{
+    height: 35px;
+}
+.lbl
+{
+    color:#232109;
+    font-family: verdana;
+    font-size: 12px;
+    text-align: right;
+}
